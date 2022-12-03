@@ -25,10 +25,12 @@ public class deste_kesme {
             kesilmis_deste[i + control1.length] = control2[i];
         }
 
-        for (int i = 0; i < kesilmis_deste.length; i++) {
-            System.out.println(kesilmis_deste[i]);
-       }
-        return kesilmis_deste;
+//        for (int i = 0; i < kesilmis_deste.length; i++) { to chechk new array
+//            System.out.println(kesilmis_deste[i]);
+//       }
+        arr = kesilmis_deste;
+        return arr;
+
     }
 
 }

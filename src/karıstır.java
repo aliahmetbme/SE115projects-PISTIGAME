@@ -5,32 +5,33 @@ public class karıstır {
     public karıstır(int[] arr){
         this.arr = arr;
     }
-    public static void main(String[] args){
+    public static int[] desteyi_karısıtr(){
         Random rd = new Random(System.currentTimeMillis());
 
-        int[] examplearrayim = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+//        int[] examplearrayim = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+//        While this class was created, this array was used as example
 
         int[] karıstırılmisarray = new int[14];
-//        for(int i = 0 ; i < examplearrayim.length ; i ++) {
-//            int new_index = rd.nextInt(examplearrayim.length);
-//            if (karıstırılmisarray[new_index] == 0) {
-//                karıstırılmisarray[new_index] = examplearrayim[i];
-//}
-// }
+
+
         int i = 0;
-        while (i < examplearrayim.length){
-            int new_index = rd.nextInt(examplearrayim.length);
+        while (i < arr.length){
+            int new_index = rd.nextInt(arr.length);
             if (karıstırılmisarray[new_index] == 0) {
-                karıstırılmisarray[new_index] = examplearrayim[i];
+                karıstırılmisarray[new_index] = arr[i];
                 i ++;
             }else {
                 continue;
             }
         }
         int toplam = 0;
-        for (int a = 0 ; a < examplearrayim.length ; a ++){
-            System.out.println( karıstırılmisarray[a] );
-            toplam += karıstırılmisarray[a];
-        }
+
+        //for (int a = 0 ; a < arr.length ; a ++){ this for loop is used check karısıtırlmıs array
+            //System.out.println( karıstırılmisarray[a] );
+            //toplam += karıstırılmisarray[a];
+            // this checks that all numbers is used one time "toplam " is found
+       //
+        arr =  karıstırılmisarray;
+        return arr;
     }
 }
