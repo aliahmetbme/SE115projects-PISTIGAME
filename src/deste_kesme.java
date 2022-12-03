@@ -2,6 +2,7 @@ public class deste_kesme {
 /**
  * ilk gün deste kesme algoritması yapıldı
  */
+//saaa
 
 
     public static int[] desteyikes() {
@@ -20,9 +21,9 @@ public class deste_kesme {
             kesilmis_deste[i + control1.length] = control2[i];
         }
 
-        for (int i = 0; i < kesilmis_deste.length; i++) {
-            System.out.println(kesilmis_deste[i]);
-        }
+//        for (int i = 0; i < kesilmis_deste.length; i++) {
+//            System.out.println(kesilmis_deste[i]);
+//        }
         return kesilmis_deste;
     }
 
