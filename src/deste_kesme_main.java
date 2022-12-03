@@ -1,7 +1,7 @@
 public class deste_kesme_main {
     public static void main(String[] args){
-
-        deste_kesme deste = new deste_kesme();
+        int[] arra = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+        deste_kesme deste = new deste_kesme(arra);
 
         deste.desteyikes();
     }
