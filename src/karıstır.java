@@ -24,7 +24,7 @@ public class karıstır {
                 continue;
             }
         }
-        int toplam = 0;
+        //int toplam = 0;
 
         //for (int a = 0 ; a < arr.length ; a ++){ this for loop is used check karısıtırlmıs array
             //System.out.println( karıstırılmisarray[a] );

@@ -11,8 +11,8 @@ public class deste_kesme {
 
     public static int[] desteyikes() {
 
-        int[] control1 = new int[arr.length / 2];
-        int[] control2 = new int[arr.length / 2];
+        int[] control1 = new int[arr.length / 2]; // ilk yarı
+        int[] control2 = new int[arr.length / 2]; // ikinci yarı
         int[] kesilmis_deste = new int[arr.length];
 
         for (int i = 0; i <= arr.length / 2 - 1; i++) {

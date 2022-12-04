@@ -1,6 +1,6 @@
 public class separetingcard {
 
-    public static int[] array;
+   public static int[] array; /// kaan
 
     public separetingcard(int[] arr){
         array = arr;
