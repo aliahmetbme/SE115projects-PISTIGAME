@@ -11,7 +11,7 @@ public class karıstır {
 //        int[] examplearrayim = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
 //        While this class was created, this array was used as example
 
-        int[] karıstırılmisarray = new int[14];
+        int[] karıstırılmisarray = new int[arr.length];
 
 
         int i = 0;
