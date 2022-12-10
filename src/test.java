@@ -51,6 +51,8 @@ public class test {
      * kartlar dağıtılırken önce her zaman kartlar dağıtılır sonra board oluşturulur
      *
      * */
+    cardseperater.putFirstCard();
+        System.out.println(cardseperater.putFirstCard());
     int tur = 1 ;
     while (true) {
         gamer1.setEl(cardseperater.getEl1());

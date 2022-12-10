@@ -14,22 +14,45 @@ public class Cardseperatetest {
         this.arr = arr;
     }
 
-    public int putFirstCard(){
-        Random rd = new Random();
-        int index = rd.nextInt(52);
-        int FirstCard = getArr()[index];
-        int[] arrAfterFirstCardPutted = new int[getArr().length - 1];
-        int x = getArr().length - 1 ;
-        while (x > 0){
-            if (getArr()[x] != 0){
-                arrAfterFirstCardPutted[x] = getArr()[x];
-                x ++ ;
-            }
-        }
-        setArr(arrAfterFirstCardPutted);
-        return FirstCard;
-
+//    public int putFirstCard(){
+//        Random rd = new Random();
+//        int index = rd.nextInt(52);
+//        int FirstCard = getArr()[index];
+//        int[] arrAfterFirstCardPutted = new int[getArr().length - 1];
+//        int x = getArr().length - 2 ;
+//        while (x > 0){
+//            if (getArr()[x] != 0){
+//                arrAfterFirstCardPutted[x] = getArr()[x];
+//                x -- ;
+//            }
+//        }
+//        setArr(arrAfterFirstCardPutted);
+//        return FirstCard;
+//
+//    }
+public int putFirstCard(){
+    //Random rd = new Random();
+    int index = 0 ;//rd.nextInt(52);
+    int FirstCard = getArr()[index];
+//    System.out.println(getArr()[index]);
+//    System.out.println("****");             to test
+//    System.out.println(getArr()[0]);
+//    System.out.println("****");
+//    System.out.println(FirstCard);
+    System.out.println(getArr().length + "getarrlength");
+    int[] arrAfterFirstCardPutted = new int[getArr().length - 1];
+    int x = 1 ;
+    while (x < getArr().length ){
+           arrAfterFirstCardPutted[x - 1] = getArr()[x];
+            x ++ ;
     }
+    setArr(arrAfterFirstCardPutted);
+//    for (int i = 0 ; i < 51 ; i ++){
+//        System.out.println(getArr()[i]);
+//    }
+    return FirstCard;
+
+}
 
     public int[] setboard(){
         int amountofcardinboard = 0;
