@@ -17,7 +17,7 @@ public class curpiyer {
 
 
     public  int[] mixdeste(){
-        Random rd = new Random(System.currentTimeMillis());
+        Random rd = new Random();
 
 //        int[] examplearrayim = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
 //        While this class was created, this array was used as example
@@ -26,13 +26,11 @@ public class curpiyer {
 
 
         int i = 0;
-        while (i < arr.length){
+        while (i < arr.length) {
             int new_index = rd.nextInt(arr.length);
             if (mixedarray[new_index] == 0) {
                 mixedarray[new_index] = arr[i];
-                i ++;
-            }else {
-                continue;
+                i++;
             }
         }
         //int toplam = 0;
@@ -53,7 +51,7 @@ public class curpiyer {
         int[] kesilmis_deste = new int[arr.length];
 
         for (int i = 0; i < arr.length / 2 ; i++) {
-            control1[i] = arr[arr.length / 2  + i];
+            control1[i] = arr[arr.length / 2 + i];
             control2[i] = arr[i];
         }
 
@@ -70,57 +68,6 @@ public class curpiyer {
     }
 
 
-    public  int[] main_el1 = new int[4];
-    public  int[] main_el2 = new int[4];
 
-    public  int[] cardseperate(){
-
-        int[] el1 = new int[4];
-        int[] el2 = new int[4];
-        int amountofcardinboard = 0;
-        if (arr.length < 8 ){
-            amountofcardinboard = arr.length;
-        } else {
-            amountofcardinboard = arr.length - 8;
-        }
-        int[] board = new int[amountofcardinboard];
-        for (int i = 0 ; i < 4; i++){
-            el1[i] = arr[i];
-        }
-
-        for (int i = 0 ; i < 4 ; i++){
-            el2[i] = arr[i + 4];
-        }
-        for (int i = 0 ; i < 8 ; i++){
-            arr[i] = 0;
-        }
-        for (int i = 0 ; i < arr.length - 8; i ++){
-            board[i] = arr[8 + i];
-        }
-        for (int i = 0 ; i< 4 ; i++){
-            System.out.println(el2[i]);
-        }
-        System.out.println("************");
-        for (int i = 0 ; i<4 ; i++){
-            System.out.println(el1[i]);
-        }
-        System.out.println("************");
-        for (int i = 0 ; i < board.length ; i ++){
-            System.out.println(board[i]);
-        }
-        main_el1 = el1;
-        main_el2 = el2;
-        return board;
-
-
-    }
-
-    public  int[] getEl1(){
-        return main_el1;
-    }
-
-    public  int[] getEl2(){
-        return main_el2;
-    }
 
 }
