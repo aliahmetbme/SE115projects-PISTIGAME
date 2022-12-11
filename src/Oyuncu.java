@@ -28,8 +28,9 @@ public class Oyuncu {
         return el;
     }
 
-    public void setEl(int[] el) {
+    public int[] setEl(int[] el) {
         this.el = el;
+        return el;
     }
 
     public int getPuan() {

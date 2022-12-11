@@ -43,24 +43,23 @@ public class test {
     Oyuncu gamer2 = new Oyuncu("Computer",new int[4],0);
 
     curpiyer object = new curpiyer(arra);
-
-     arra = object.mixdeste();
-     arra = object.desteyikes();
-     Cardseperatetest cardseperater = new Cardseperatetest(arra);
+    arra = object.mixdeste();
+    arra = object.desteyikes();
+    Cardseperatetest cardseperater = new Cardseperatetest(arra);
      /*
      * kartlar dağıtılırken önce her zaman kartlar dağıtılır sonra board oluşturulur
-     *
-     * */
-    cardseperater.putFirstCard();
-        System.out.println(cardseperater.putFirstCard());
+     */
+
+    System.out.println(cardseperater.putFirstCard());
     int tur = 1 ;
-    while (true) {
+
+        while (true) {
         gamer1.setEl(cardseperater.getEl1());
         System.out.println("//////// el1  " + tur);
         gamer1.showEl();
 
         gamer2.setEl(cardseperater.getEl2());
-        System.out.println("//////// el2  " + tur);
+        System.out.println("//////// el2  " + tur);       //cardların belli bir düzende dağıtılabildiği test edildi !!
         gamer2.showEl();
 
         int[] board = cardseperater.getborad();
@@ -86,6 +85,10 @@ public class test {
 //    for (int i = 0 ; i < arra.length ; i ++){
 //            System.out.println(arra[i]);
 //    }
+
+
+
+
 
   }
 }
