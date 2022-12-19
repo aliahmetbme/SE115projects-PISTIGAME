@@ -130,7 +130,7 @@ public class Gamers {
     }
 
     public boolean isSame(String cardHand , String card_on_board){
-        if (card_on_board == null){
+        if (card_on_board == null || cardHand == null){
             return false;
         } else {
 

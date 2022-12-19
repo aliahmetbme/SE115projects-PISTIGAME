@@ -64,15 +64,16 @@ public class PlayGame {
             // this loop checks that is chosen card available in the hand or not
             for (int i = 0 ; i < dealersHand.length ; i ++){
                 // if card is available in the hand statement will be false and do not go if statement
-                if (dealersHand[i] != chosenCard){
+                if (dealersHand[i] == chosenCard){
                     // 9 10 11 12
                     // 10
                     chosenCard_exist = false;
+                    break;
 
                 }
             }
             // if it still true the card is not available on the hand
-            if (chosenCard_exist){
+            if (!chosenCard_exist){
                 System.out.println("You did not choose correct card");
                 // the game will be finish
                 // new method can be developed
@@ -172,9 +173,10 @@ public class PlayGame {
                 }
             }
             System.out.println(deck.length + " uzunluk " + " Tur " + tur);
+            tur ++;
 
             //cards are less than 8, it means the game has to finished
-            if (deck.length < 5){
+            if (deck.length < 5 ){
                 System.out.println("The Game is over ");
                 if(computer.getPoint() > dealer.getPoint()){
                     System.out.println("computers point is " + computer.getPoint());
