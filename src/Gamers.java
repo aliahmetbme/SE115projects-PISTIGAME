@@ -4,11 +4,9 @@ public class Gamers {
     private String name;
     private String[] cards;
     private int point;
-
     private int Amount_card_taken;
 
     // CONSTRUCTIOR//
-
     public Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN) {
         setName(NAME);
         setCards(CARDS);
@@ -17,7 +15,6 @@ public class Gamers {
     }
 
     // GETTER-SETTER //
-
     public String getName() {
         return name;
     }
@@ -52,7 +49,6 @@ public class Gamers {
 
 
     // METHODS //
-
     public String[] mixDeck(String[] deck) {
         Random rd = new Random();
 //        int[] examplearrayim = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
@@ -156,9 +152,12 @@ public class Gamers {
     public boolean isSame(String cardHand, String card_on_board) {
         if (card_on_board == null || cardHand == null) {
             return false;
-        } else {
-
+        } else if (cardHand.length() == 3 && card_on_board.length() == 3){
+            return (cardHand.charAt(1) + cardHand.charAt(2) + "").equals(card_on_board.charAt(1) + card_on_board.charAt(2) + "");
+        } else if (cardHand.length() == 2 && card_on_board.length() == 2){
             return (cardHand.charAt(1) + "").equals(card_on_board.charAt(1) + "");
+        } else {
+            return false;
         }
 
     }
