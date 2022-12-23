@@ -12,10 +12,10 @@ public class PlayGame {
         Gamers dealer = new Gamers("name",new String[4] , 0,0);
         Gamers computer = new Gamers("Computer" , new  String[4] ,0,0);
 
-        String[] deck = {"#1","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
-                         "$1","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",
-                         "%1","%2","%3","%4","%5","%6","%7","%8","%9","%10","%11","%12","%13",
-                         "&1","&2","&3","&4","&5","&6","&7","&8","&9","&10","&11","&12","&13"};
+        String[] deck = {"#J","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
+                         "$J","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",
+                         "%J","%2","%3","%4","%5","%6","%7","%8","%9","%10","%11","%12","%13",
+                         "&J","&2","&3","&4","&5","&6","&7","&8","&9","&10","&11","&12","&13"};
 
         System.out.println("WELCOME THE GAME YOUR COMPETITOR WILL BE COMPUTER PLEASE ENTER YOUR NAME :");
 
@@ -57,7 +57,7 @@ public class PlayGame {
 
         deck = dealer.UpdateCurrentCardsBeforeStart(deck);
 
-        System.out.println("GAME STARTS WITH " + dealer.getName() );
+        System.out.println("Game starts with " + dealer.getName() );
 
         //int tur = 1;
 
@@ -72,15 +72,19 @@ public class PlayGame {
         while (true){
 
             // First card on the Board
-            System.out.println("***" + FirstCard + "***");
+            System.out.println( "------------------\n" +
+                                "------- " + FirstCard + " ------- \n" +
+                                "------------------"  );
 
 //            System.out.println("Please type the card you want to play that is one of the your hand \n " +
 //                    "If you do not choose cards in the deck, the game is finish");
-
+            System.out.println();
             System.out.println(dealer.getName() + "'s hand ");
-            System.out.println("*****");
+
+
+            System.out.println("************");
             dealer.showHand(dealersHand);
-            System.out.println("*****");
+            System.out.println("************");
 
             String chosenCard = scan.nextLine(); // Gamer chooses card
             boolean chosenCard_not_exist = true;
@@ -119,10 +123,22 @@ public class PlayGame {
                 cardsontheboard ++;
             }
 
-            System.out.println(FirstCard + " AFTER PLAY DEALER "); // Computer must see card on the board
-            if (FirstCard == null){
-                System.out.println("....");
+            if (FirstCard == (null)){
+                System.out.println( "------------------\n" +
+                        "------- " + "  " + " ------- \n" +
+                        "------------------"  );
+            } else {
+                System.out.println("------------------\n" +
+                        "------- " + FirstCard + " ------- \n" +
+                        "------------------");
             }
+
+            System.out.println(" AFTER PLAY DEALER ");
+            //System.out.print(FirstCard); // Computer must see card on the board
+            System.out.println();
+//            if (FirstCard == null){
+//                System.out.println("....");
+//            }
 
             // this loop make null index that is same with chosenCard of Hand so next turns same cards does not be chosen.
             for (int i = 0 ; i < dealersHand.length ; i++){
@@ -135,6 +151,7 @@ public class PlayGame {
             }
 
             System.out.println(computer.getName() + "' turn ");
+            System.out.println();
             System.out.println(FirstCard + " AFTER PLAY DEALER ");
 
             int index; // the card which is in the place in the deck.
@@ -143,17 +160,24 @@ public class PlayGame {
             // if not chosen before , loop complete it works.
 
             boolean doesHaveSameCard = false;
+            boolean doesHaveJ = false;
+
             int a = 0;
+            int b = 0;
 
-            for (int i = 0 ; i < computerHand.length ; i ++){
-                System.out.println(computerHand[i]);
+            for (String s : computerHand) {
+                System.out.print(s + " ");
             }
+            System.out.println();
 
-
-            for(int i = 0 ; i < computerHand.length ; i ++) {
-
+            for (int i = 0 ; i < computerHand.length ; i++){
                 if (computerHand[i] == null){
                     continue;
+                }
+                if(("J" + "").equals(computerHand[i].charAt(1) + "")){
+                    doesHaveJ = true;
+                    b = i ;
+                    break;
                 }
                 if (computer.isSame(computerHand[i],FirstCard)){
                     doesHaveSameCard = true;
@@ -161,8 +185,10 @@ public class PlayGame {
                     break;
                 }
             }
-
-            if (doesHaveSameCard){
+            if (doesHaveJ){ //Firstly it is checked which is J or not, if it is J ; J is played.
+                index = b;
+            }
+            else if (doesHaveSameCard){
                 index = a; // if computer has already same card that is same with FirstCard this
 
             } else { // else Normal process continue
@@ -192,8 +218,6 @@ public class PlayGame {
                     }
                 }
             }
-
-
 //                        boolean canIt_take_cards = false;
 //            if (computer.isSame(computerHand[index],FirstCard)){
 //                canIt_take_cards = true;
@@ -220,14 +244,22 @@ public class PlayGame {
                 cardsontheboard++;
             }
 
+            System.out.println();
             System.out.println(FirstCard + " After computer play " + computerHand[index] + " played it") ;
 
             computerHand[index] = null; // chosen index will be null to prevent same card is chosen again
 
+            System.out.println();
 
-            if (FirstCard == null){
-                System.out.println("....");
-            }
+            /*if (FirstCard == (null)){*/
+                System.out.println( "------------------\n" +
+                        "------- " + "  " + " ------- \n" +
+                        "------------------"  );
+//            } else {
+//                System.out.println("------------------\n" +
+//                        "------- " + FirstCard + " ------- \n" +
+//                        "------------------");
+//            }
 
             boolean isAll_null_dealer = true;
             boolean isAll_null_computer = true;
@@ -250,14 +282,17 @@ public class PlayGame {
             //cards are less than 8, it means the game has to finished
             if (deck.length == 0 && isAll_null_computer && isAll_null_dealer){
                 System.out.println("//////////////////////////////////////////////");
+                System.out.println();
                 System.out.println("alis hand");
                 for (int i = 0 ; i < dealersHand.length ; i ++ ){
-                    System.out.println(dealersHand[i]);
+                    System.out.print(dealersHand[i] + "");
                 }
+                System.out.println();
                 System.out.println("Computers hand");
                 for (int i = 0 ; i < dealersHand.length ; i ++ ){
-                    System.out.println(computerHand[i]);
+                    System.out.print(computerHand[i] + "");
                 }
+                System.out.println();
                 System.out.println("Information about statement of cards");
                 System.out.println("Length of deck " + deck.length);
                 System.out.println("length of dealers hand " + 0);
@@ -265,6 +300,7 @@ public class PlayGame {
                 System.out.println("Cards on the board " + cardsontheboard);
                 System.out.println("Computer take" + computer.getAmount_card_taken());
                 System.out.println(dealer.getName() + "take " + dealer.getAmount_card_taken());
+                System.out.println();
                 System.out.println("//////////////////////////////////////////////");
 
                 System.out.println("The Game is over ");

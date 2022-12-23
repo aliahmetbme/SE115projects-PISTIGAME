@@ -145,13 +145,16 @@ public class Gamers {
 
     public void showHand(String[] hand) { // it shows cards that are on the hand of player
         for (int i = 0; i < hand.length; i++) {
-            System.out.println(hand[i]);
+            System.out.print(hand[i] + " ");
         }
+        System.out.println();
     }
 
     public boolean isSame(String cardHand, String card_on_board) {
         if (card_on_board == null || cardHand == null) {
             return false;
+        } else if ((cardHand.charAt(1) + "").equals("J" + "")){
+            return true;
         } else if (cardHand.length() == 3 && card_on_board.length() == 3){
             return (cardHand.charAt(1) + cardHand.charAt(2) + "").equals(card_on_board.charAt(1) + card_on_board.charAt(2) + "");
         } else if (cardHand.length() == 2 && card_on_board.length() == 2){
