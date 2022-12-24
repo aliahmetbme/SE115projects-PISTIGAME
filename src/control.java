@@ -2,11 +2,46 @@ import java.util.Random;
 public class control {
    public static void main(String[] args) {
        Gamers gamers = new Gamers("ali ", new String[4],0,0);
+       String[] myboard = {"1","2","3","4","5","6","7","8","9"};
 
-       String x ="c22";
-       String y = "v2";
-       System.out.println(gamers.isSame(x,y));
+       String [] controlarrayı = new String[52];
+       String choosen = "ali";
+       System.out.println(choosen);
 
+       System.out.println();
+       gamers.showboard(myboard);
+       System.out.println();
+       myboard = gamers.updateBoard(myboard,choosen);
+       System.out.println("----------");
+       System.out.println();
+       gamers.showboard(myboard);
+       System.out.println("---------------------");
+
+       String choosen1 = "ayşe";
+       System.out.println(choosen1);
+       System.out.println();
+       gamers.showboard(myboard);
+       System.out.println();
+       myboard = gamers.updateBoard(myboard,choosen1);
+       gamers.showboard(myboard);
+
+       String choosen2 = null;
+       System.out.println(" ");
+       System.out.println();
+       gamers.showboard(myboard);
+       System.out.println();
+       myboard = gamers.updateBoard(myboard,null);
+       System.out.println("after write null");
+       gamers.showboard(myboard);
+       System.out.println("//////");
+       System.out.println(myboard.length);
+//       String choosen3 = "anne";
+//       System.out.println(choosen3);
+//       System.out.println();
+//       gamers.showboard(myboard);
+//       System.out.println();
+//       myboard = gamers.updateBoard(myboard,choosen3);
+//       gamers.showboard(myboard);
 
 
 //        Random rd = new Random(System.currentTimeMillis());

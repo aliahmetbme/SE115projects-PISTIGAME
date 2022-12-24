@@ -113,6 +113,35 @@ public class Gamers {
     public String showFirstCard(String[] puttedCards_toBoard) {
         return puttedCards_toBoard[0]; // in the game first card of cards that on the board is shown.
     }
+    public void showboard(String[] new_array){
+        for (int i = 0 ; i < new_array.length; i++){
+            if (new_array[i] == null){
+                break;
+            }
+            System.out.print(new_array[i] + " ");
+        }
+    }
+    public String[] updateBoard(String[] array, String choosen_card){
+        String[] new_array = new String[52];
+        if (choosen_card == null){
+            for (int i = 0; i < array.length; i++) {
+                new_array[i] = null;
+            }
+            System.out.println("     ");
+
+        } else {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == null) {
+                    break;
+                }
+                new_array[i + 1] = array[i];
+            }
+            new_array[0] = choosen_card;
+
+        }
+        return new_array;
+
+    }
 
     public String[] UpdateCurrentCards(String[] deck) { // this method updates the deck after cards are separated.
         int amountOfCurrentCards;

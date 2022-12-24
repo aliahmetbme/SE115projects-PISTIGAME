@@ -59,6 +59,10 @@ public class PlayGame {
 
         System.out.println("Game starts with " + dealer.getName() );
 
+        System.out.println("Cards on the board");
+        showboard(cardsOnBoard);
+        System.out.println();
+
         //int tur = 1;
 
 //        System.out.println("Length of deck " + deck.length);
@@ -123,17 +127,31 @@ public class PlayGame {
                 cardsontheboard ++;
             }
 
-            if (FirstCard == (null)){
-                System.out.println( "------------------\n" +
-                        "------- " + "  " + " ------- \n" +
-                        "------------------"  );
-            } else {
-                System.out.println("------------------\n" +
-                        "------- " + FirstCard + " ------- \n" +
-                        "------------------");
-            }
+//            if (FirstCard == (null)){
+//                System.out.println( "------------------\n" +
+//                        "------- " + "  " + " ------- \n" +
+//                        "------------------"  );
+//            } else {
+//                System.out.println("------------------\n" +
+//                        "------- " + FirstCard + " ------- \n" +
+//                        "------------------");
+//            }
 
-            System.out.println(" AFTER PLAY DEALER ");
+            System.out.println(FirstCard + "  After dealer  play");
+            cardsOnBoard =updateBoard(cardsOnBoard,FirstCard);
+            System.out.println();
+            if (cardsOnBoard.length == 0){
+                System.out.println("Boş");
+            }else {
+                showboard(cardsOnBoard);
+            }
+            System.out.println();
+            System.out.println("Cards on the board After dealer play ");
+            System.out.println("dealer played");
+            System.out.println();
+
+
+
             //System.out.print(FirstCard); // Computer must see card on the board
             System.out.println();
 //            if (FirstCard == null){
@@ -165,6 +183,7 @@ public class PlayGame {
             int a = 0;
             int b = 0;
 
+            System.out.println("Computers' hand");
             for (String s : computerHand) {
                 System.out.print(s + " ");
             }
@@ -231,7 +250,7 @@ public class PlayGame {
 //            }
             if (computer.isSame(computerHand[index],FirstCard)){ // if computers' card is same with boarded card
 
-                computerPoint += 10; // 10 points gains
+                computerPoint += 1; // 10 points gains
                 computer.setPoint(computerPoint); // points are updated
                 FirstCard = null; // any cards on the board
                 cardsontheboard ++; // add card played
@@ -251,15 +270,19 @@ public class PlayGame {
 
             System.out.println();
 
-            /*if (FirstCard == (null)){*/
-                System.out.println( "------------------\n" +
-                        "------- " + "  " + " ------- \n" +
-                        "------------------"  );
-//            } else {
-//                System.out.println("------------------\n" +
-//                        "------- " + FirstCard + " ------- \n" +
-//                        "------------------");
-//            }
+
+//            System.out.println("---------------------\n" +
+//                        "-------  " + FirstCard + "  ------ \n" +
+//                        "---------------------");
+
+            System.out.println(FirstCard + "After computer  play");
+            System.out.println("Cards on the board After computer play ");
+            cardsOnBoard =updateBoard(cardsOnBoard,FirstCard);
+
+                showboard(cardsOnBoard);
+
+            System.out.println();
+            System.out.println("computer played");
 
             boolean isAll_null_dealer = true;
             boolean isAll_null_computer = true;
@@ -349,5 +372,34 @@ public class PlayGame {
 //                tur ++;
             }
         }
+    }
+
+    public static void showboard(String[] new_array){
+        for (int i = 0 ; i < new_array.length; i++){
+            if (new_array[i] == null){
+                break;
+            }
+            System.out.print(new_array[i] + " ");
+        }
+    }
+    public static String[] updateBoard(String[] array, String choosen_card) {
+        String[] new_array = new String[52];
+        if (choosen_card == null) {
+            for (int i = 0; i < array.length; i++) {
+                new_array[i] = null;
+            }
+            System.out.println("   Empty   ");
+
+        } else {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == null) {
+                    break;
+                }
+                new_array[i + 1] = array[i];
+            }
+            new_array[0] = choosen_card;
+
+        }
+        return new_array;
     }
 }
