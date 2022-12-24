@@ -1,16 +1,15 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class PlayGame {
+public class B_PlayGame {
     public static void main(String[] args) {
         // Classes of Random and Scanner
         Scanner scan = new Scanner(System.in);
         Random rd = new Random();
 
         // Creating Gamers
-
-        Gamers dealer = new Gamers("name",new String[4] , 0,0,new String[52]);
-        Gamers computer = new Gamers("Computer" , new  String[4] ,0,0,new String[52]);
+        A_Gamers dealer = new A_Gamers("name",new String[4] , 0,0,new String[52]);
+        A_Gamers computer = new A_Gamers("Computer" , new  String[4] ,0,0,new String[52]);
 
         String[] deck = {"#J","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
                          "$J","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",

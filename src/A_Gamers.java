@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Gamers {
+public class A_Gamers {
     private String name;
     private String[] cards;
     private int point;
@@ -9,7 +9,7 @@ public class Gamers {
 
 
     // CONSTRUCTIOR//
-    public Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN, String[]  Cardstaken_from_board) {
+    public A_Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN, String[]  Cardstaken_from_board) {
         setName(NAME);
         setCards(CARDS);
         setPoint(POINT);
