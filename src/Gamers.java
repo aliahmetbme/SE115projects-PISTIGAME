@@ -6,6 +6,7 @@ public class Gamers {
     private int point;
     private int Amount_card_taken;
 
+
     // CONSTRUCTIOR//
     public Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN) {
         setName(NAME);
