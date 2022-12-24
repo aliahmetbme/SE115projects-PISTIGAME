@@ -5,14 +5,16 @@ public class Gamers {
     private String[] cards;
     private int point;
     private int Amount_card_taken;
+    private String[] cardstaken_from_board;
 
 
     // CONSTRUCTIOR//
-    public Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN) {
+    public Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN, String[]  Cardstaken_from_board) {
         setName(NAME);
         setCards(CARDS);
         setPoint(POINT);
         setAmount_card_taken(AMOUNTCARDTAKEN);
+        setCards_taken_from_board(Cardstaken_from_board);
     }
 
     // GETTER-SETTER //
@@ -48,7 +50,12 @@ public class Gamers {
         Amount_card_taken = amount_card_taken;
     }
 
-
+    public void setCards_taken_from_board(String[] cards_taken_from_board) {
+        cardstaken_from_board = cards_taken_from_board;
+    }
+    public String[] getCards_taken_from_board() {
+        return cardstaken_from_board;
+    }
     // METHODS //
     public String[] mixDeck(String[] deck) {
         Random rd = new Random();
@@ -114,35 +121,35 @@ public class Gamers {
     public String showFirstCard(String[] puttedCards_toBoard) {
         return puttedCards_toBoard[0]; // in the game first card of cards that on the board is shown.
     }
-    public void showboard(String[] new_array){
-        for (int i = 0 ; i < new_array.length; i++){
-            if (new_array[i] == null){
-                break;
-            }
-            System.out.print(new_array[i] + " ");
-        }
-    }
-    public String[] updateBoard(String[] array, String choosen_card){
-        String[] new_array = new String[52];
-        if (choosen_card == null){
-            for (int i = 0; i < array.length; i++) {
-                new_array[i] = null;
-            }
-            System.out.println("     ");
-
-        } else {
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == null) {
-                    break;
-                }
-                new_array[i + 1] = array[i];
-            }
-            new_array[0] = choosen_card;
-
-        }
-        return new_array;
-
-    }
+//    public void showboard(String[] new_array){
+//        for (int i = 0 ; i < new_array.length; i++){
+//            if (new_array[i] == null){
+//                break;
+//            }
+//            System.out.print(new_array[i] + " ");
+//        }
+//    }
+//    public String[] updateBoard(String[] array, String choosen_card){
+//        String[] new_array = new String[52];
+//        if (choosen_card == null){
+//            for (int i = 0; i < array.length; i++) {
+//                new_array[i] = null;
+//            }
+//            System.out.println("     ");
+//
+//        } else {
+//            for (int i = 0; i < array.length; i++) {
+//                if (array[i] == null) {
+//                    break;
+//                }
+//                new_array[i + 1] = array[i];
+//            }
+//            new_array[0] = choosen_card;
+//
+//        }
+//        return new_array;
+//
+//    }
 
     public String[] UpdateCurrentCards(String[] deck) { // this method updates the deck after cards are separated.
         int amountOfCurrentCards;
@@ -180,20 +187,23 @@ public class Gamers {
         System.out.println();
     }
 
-    public boolean isSame(String cardHand, String card_on_board) {
-        if (card_on_board == null || cardHand == null) {
-            return false;
-        } else if ((cardHand.charAt(1) + "").equals("J" + "")){
-            return true;
-        } else if (cardHand.length() == 3 && card_on_board.length() == 3){
-            return (cardHand.charAt(1) + cardHand.charAt(2) + "").equals(card_on_board.charAt(1) + card_on_board.charAt(2) + "");
-        } else if (cardHand.length() == 2 && card_on_board.length() == 2){
-            return (cardHand.charAt(1) + "").equals(card_on_board.charAt(1) + "");
-        } else {
-            return false;
-        }
 
-    }
+
+
+//    public boolean isSame(String cardHand, String card_on_board) {
+//        if (card_on_board == null || cardHand == null) {
+//            return false;
+//        } else if ((cardHand.charAt(1) + "").equals("J" + "")){
+//            return true;
+//        } else if (cardHand.length() == 3 && card_on_board.length() == 3){
+//            return (cardHand.charAt(1) + cardHand.charAt(2) + "").equals(card_on_board.charAt(1) + card_on_board.charAt(2) + "");
+//        } else if (cardHand.length() == 2 && card_on_board.length() == 2){
+//            return (cardHand.charAt(1) + "").equals(card_on_board.charAt(1) + "");
+//        } else {
+//            return false;
+//        }
+//
+//    }
 }
 
 

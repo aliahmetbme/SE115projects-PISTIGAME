@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class cardseparatetest {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Gamers dealer = new Gamers("name",new String[4] ,0, 0);
-        Gamers computer = new Gamers("Computer" , new  String[4] ,0,0);
+        Gamers dealer = new Gamers("name",new String[4] ,0, 0,new String[52]);
+        Gamers computer = new Gamers("Computer" , new  String[4] ,0,0, new String[52]);
 
         String[] deck = {"#1","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
                 "$1","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",
