@@ -11,10 +11,20 @@ public class B_PlayGame {
         A_Gamers dealer = new A_Gamers("name",new String[4] , 0,0,new String[52]);
         A_Gamers computer = new A_Gamers("Computer" , new  String[4] ,0,0,new String[52]);
 
-        String[] deck = {"#J","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
-                         "$J","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",
-                         "%J","%2","%3","%4","%5","%6","%7","%8","%9","%10","%11","%12","%13",
-                         "&J","&2","&3","&4","&5","&6","&7","&8","&9","&10","&11","&12","&13"};
+        // Creating deck
+        String[] suits = {"#","$","%","&"};
+        String[] number = {"J","2","3","4","5","6","7","8","9","10","11","12","13"};
+        Deck Deck = new Deck(suits,number);
+
+        String[] deck = Deck.createDeck();
+
+        for (String value : deck) {
+            System.out.println(value);
+        }
+//        String[] deck = {"#J","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
+//                         "$J","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",
+//                         "%J","%2","%3","%4","%5","%6","%7","%8","%9","%10","%11","%12","%13",
+//                         "&J","&2","&3","&4","&5","&6","&7","&8","&9","&10","&11","&12","&13"};
 
         System.out.println("WELCOME THE GAME YOUR COMPETITOR WILL BE COMPUTER PLEASE ENTER YOUR NAME :");
 
@@ -64,7 +74,7 @@ public class B_PlayGame {
         //System.out.println();
         boolean isDealer_took_cards = false;
         boolean isComputer_took_cards = false;
-        boolean who_take_final = true;
+
 
         //int tur = 1;
 
@@ -79,7 +89,7 @@ public class B_PlayGame {
         while (true){
 //            System.out.println("Please type the card you want to play that is one of the hand \n " +
 //                    "If you do not choose cards in the deck, the game is finish");
-
+            boolean who_take_final = true;
             System.out.println("**********************************" + dealer.getName() + "**********************************");
 
             System.out.println();
@@ -368,6 +378,7 @@ public class B_PlayGame {
                     for (int i = 0; i + last + 1 < cardsOnBoard.length ; i ++){
                         dealer_take[last + i + 1] = cardsOnBoard[i];
                     }
+                    cardsOnBoard = updateBoard(cardsOnBoard,null);
                     System.out.println("sonuncuyu dealer aldı");
                 } else {
                     int s = 0;
@@ -382,6 +393,7 @@ public class B_PlayGame {
                         computer_take[s + i + 1]  = cardsOnBoard[i];
                     }
                     System.out.println("sonuncuyu computer aldı");
+                    cardsOnBoard = updateBoard(cardsOnBoard,null);
                 }
 //              System.out.println("computers point is " + computer.getPoint());
 //              System.out.println(dealer.getName() + " point is " + dealer.getPoint());
@@ -397,9 +409,15 @@ public class B_PlayGame {
                 System.out.println("Computer take");
                 showboard(computer_take);
                 System.out.println();
+
                 System.out.println("Dealer take");
                 showboard(dealer_take);
                 System.out.println();
+
+                System.out.println("Cards on the board");
+                showboard(cardsOnBoard);
+                System.out.println();
+
                 System.out.println("computers point is " + computer.getPoint());
                 System.out.println(dealer.getName() + " point is " + dealer.getPoint());
 
