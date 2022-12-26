@@ -56,6 +56,7 @@ public class A_Gamers {
     public String[] getCards_taken_from_board() {
         return cardstaken_from_board;
     }
+
     // METHODS //
     public String[] mixDeck(String[] deck) {
         Random rd = new Random();

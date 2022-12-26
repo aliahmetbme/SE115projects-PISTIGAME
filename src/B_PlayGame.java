@@ -1,3 +1,8 @@
+/*
+CREATED BY ALİ AHMET ERDOĞDU
+DECEMBER 2022
+ */
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -88,7 +93,9 @@ public class B_PlayGame {
         // Game loop
         while (true){
 //            System.out.println("Please type the card you want to play that is one of the hand \n " +
-//                    "If you do not choose cards in the deck, the game is finish");
+//                                "If you do not choose cards in the deck, the game is finish");
+
+
             boolean who_take_final = true;
             System.out.println("**********************************" + dealer.getName() + "**********************************");
 
