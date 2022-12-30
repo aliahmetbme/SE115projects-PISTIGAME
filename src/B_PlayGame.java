@@ -382,7 +382,7 @@ public class B_PlayGame {
                 }else {
                     System.out.println("Everyone won");
                 }
-                showTable();
+
                 break;
             }
 
@@ -540,11 +540,7 @@ public class B_PlayGame {
 //        }
 //    }
 
-    public static void showTable(){
-        for (int i = 0 ; i  < myarray.length - 1; i += 2){
-            System.out.println( " name : " + myarrayisimler[i] + " Score: " + myarray[i] );
-        }
-    }
+
     public static void readFile(){
         Scanner scan = null;
         String[] fields = {"Name --> ","Point --> "};
