@@ -13,7 +13,7 @@ public class B_PlayGame {
     public static String[] scorelist = new String[20];
     public static String[] myarray = new String[10];
     public static String[] myarrayisimler = new String[10];
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // Classes of Random and Scanner
         Scanner scan = new Scanner(System.in);
@@ -35,7 +35,10 @@ public class B_PlayGame {
         String dealersName = scan.nextLine(); // The dealer enter his/her name.
         dealer.setName(dealersName);
         readFile();
-        showboard(myarrayisimler);
+        if (myarray[9] == null){
+            writefilefirst();
+        }
+
         // dealer mixes the deck
         deck = dealer.mixDeck(deck);
 
@@ -353,11 +356,17 @@ public class B_PlayGame {
                 System.out.println(dealer.getName() + " point is " + dealer.getPoint());
 
                 // if dealers point larger than the least point it enters the list
-                if (dealer.getPoint() > Integer.parseInt(myarray[9].trim())){
-                    myarray[9] = Integer.toString(dealer.getPoint());
-                    myarrayisimler[9] = dealer.getName();;
+                if (myarray[9] == null){
+                    writefilefirst();
                 }
-                writefile(9);
+
+                    if (dealer.getPoint() > Integer.parseInt(myarray[9].trim())) {
+                        myarray[9] = Integer.toString(dealer.getPoint());
+                        myarrayisimler[9] = dealer.getName();
+                        ;
+                    }
+                    writefile(9);
+
 
                 if(computer.getPoint() > dealer.getPoint()){
                     System.out.println("**************Computer won ***************");
@@ -494,7 +503,7 @@ public class B_PlayGame {
         int j = 0;
         int k = 0;
         int index = 0;
-        scan = new Scanner(Paths.get("Scorelist.txt"));
+        scan = new Scanner(Paths.get("SHOWSCORES.txt"));
         while (scan.hasNextLine()){
             String[] information = scan.nextLine().split(",");
 
@@ -529,7 +538,8 @@ public class B_PlayGame {
             }
         }
     } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println(" Güncel bir scor yok ");
+       // e.printStackTrace();
     } finally {
         if (scan != null){
             scan.close();
@@ -565,7 +575,7 @@ public class B_PlayGame {
             }
         }
         try {
-            f = new Formatter("Scorelist.txt");
+            f = new Formatter("SHOWSCORES.txt");
             while (true) {
                 f.format("%s, %s\n", myarrayisimler[index], myarray[index]);
                 index --;
@@ -581,6 +591,32 @@ public class B_PlayGame {
                 f.close();
             }
         }
+    }
+
+    public static void writefilefirst() throws IOException {
+        Formatter f = null;
+        FileWriter fw = null;
+
+        try {
+            int index = 9;
+
+                f = new Formatter("SHOWSCORES.txt");
+                while (true) {
+                    f.format("%s, %s\n", "_", "0");
+                    index --;
+                    if (index == -1){
+                        break;
+                    }
+                }
+        } catch (Exception e) {
+            System.err.println("Something went wrong.");
+        } finally {
+            if (f != null) {
+                f.close();
+            }
+        }
+
+
     }
 }
 

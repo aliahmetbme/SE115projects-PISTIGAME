@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="se115pistiprojects">
+    <output-path>$PROJECT_DIR$/out/artifacts/se115pistiprojects</output-path>
+    <root id="archive" name="se115projects.jar">
+      <element id="module-output" name="se115projects" />
+    </root>
+  </artifact>
+</component>

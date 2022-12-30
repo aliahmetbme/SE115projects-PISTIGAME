@@ -1,10 +1,10 @@
-ALİ, 100
-ŞAŞA, 100
-Kayserispor, 70
-SON DENEME, 66
-Konyaspor, 60
-KAANBENİSUSTURDU, 50
-Giresunspor, 50
-OLDUENSONUNDAOLDU, 50
-BU SON OLSUN, 43
-Nolurolsun,    40
+AYŞE, 63
+_,  0
+_,  0
+_,  0
+_,  0
+_,  0
+_,  0
+_,  0
+_,  0
+_,  0
