@@ -8,6 +8,7 @@ public class A_Gamers {
     private String[] cardstaken_from_board;
 
 
+
     // CONSTRUCTIOR//
     public A_Gamers(String NAME, String[] CARDS, int POINT, int AMOUNTCARDTAKEN, String[]  Cardstaken_from_board) {
         setName(NAME);
@@ -58,7 +59,7 @@ public class A_Gamers {
     }
 
     // METHODS //
-    public String[] mixDeck(String[] deck) {
+    public String[] mixDeck(String[] deck) { // the deck is mixed
         Random rd = new Random();
 //        int[] examplearrayim = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
 //        While this class was created, this array was used as example
@@ -109,7 +110,7 @@ public class A_Gamers {
 
     }
 
-    public String[] putCards_toBoard(String[] deck) {
+    public String[] putCards_toBoard(String[] deck) { // before the game 4
         String[] cardsOnBoard = new String[4];
 
         for (int i = 0; i < 4; i++) {
@@ -122,35 +123,6 @@ public class A_Gamers {
     public String showFirstCard(String[] puttedCards_toBoard) {
         return puttedCards_toBoard[0]; // in the game first card of cards that on the board is shown.
     }
-//    public void showboard(String[] new_array){
-//        for (int i = 0 ; i < new_array.length; i++){
-//            if (new_array[i] == null){
-//                break;
-//            }
-//            System.out.print(new_array[i] + " ");
-//        }
-//    }
-//    public String[] updateBoard(String[] array, String choosen_card){
-//        String[] new_array = new String[52];
-//        if (choosen_card == null){
-//            for (int i = 0; i < array.length; i++) {
-//                new_array[i] = null;
-//            }
-//            System.out.println("     ");
-//
-//        } else {
-//            for (int i = 0; i < array.length; i++) {
-//                if (array[i] == null) {
-//                    break;
-//                }
-//                new_array[i + 1] = array[i];
-//            }
-//            new_array[0] = choosen_card;
-//
-//        }
-//        return new_array;
-//
-//    }
 
     public String[] UpdateCurrentCards(String[] deck) { // this method updates the deck after cards are separated.
         int amountOfCurrentCards;
@@ -169,7 +141,7 @@ public class A_Gamers {
         return CurrentCards;
     }
 
-    public String[] UpdateCurrentCardsBeforeStart(String[] deck) { // this method updates the deck after cards are separated.
+    public String[] UpdateCurrentCardsBeforeStart(String[] deck) { // this method updates the deck after cards are separated, before game starts.
         int amountOfCurrentCards = deck.length - 12;
 
         String[] CurrentCards = new String[amountOfCurrentCards];
@@ -189,22 +161,6 @@ public class A_Gamers {
     }
 
 
-
-
-//    public boolean isSame(String cardHand, String card_on_board) {
-//        if (card_on_board == null || cardHand == null) {
-//            return false;
-//        } else if ((cardHand.charAt(1) + "").equals("J" + "")){
-//            return true;
-//        } else if (cardHand.length() == 3 && card_on_board.length() == 3){
-//            return (cardHand.charAt(1) + cardHand.charAt(2) + "").equals(card_on_board.charAt(1) + card_on_board.charAt(2) + "");
-//        } else if (cardHand.length() == 2 && card_on_board.length() == 2){
-//            return (cardHand.charAt(1) + "").equals(card_on_board.charAt(1) + "");
-//        } else {
-//            return false;
-//        }
-//
-//    }
 }
 
 

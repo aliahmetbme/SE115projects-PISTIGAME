@@ -6,7 +6,7 @@ public class Deck {
         setSuits(SUITS);
         setNumbers(NUMBERS);
     }
-
+/// GETTER SETTER ///
     public String[] getSuits() {
         return suits;
     }
@@ -22,8 +22,8 @@ public class Deck {
     public void setNumbers(String[] numbers) {
         this.numbers = numbers;
     }
-
-    public String[] createDeck(){
+/// METHOD ///
+    public String[] createDeck(){ // it crates the deck
         int x = 0;
         String[] deck = new String[52];
         for(int i = 0 ; i < getSuits().length ; i ++) {

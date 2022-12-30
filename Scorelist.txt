@@ -1,0 +1,12 @@
+  me,  1000
+  KAAN, 400
+  GiresunspoN, 90
+  Alanyaspor, 80
+  Kayserispor, 70
+  Konyaspor, 60
+  Trabzonspor, 50
+  Beşiktaş, 40
+  Başakşehir, 30
+ x , 10 ali, 30
+  ESMA, 40
+ 

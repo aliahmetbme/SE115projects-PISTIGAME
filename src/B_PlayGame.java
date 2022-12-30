@@ -2,12 +2,20 @@
 CREATED BY ALİ AHMET ERDOĞDU
 DECEMBER 2022
  */
-
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Formatter;
 import java.util.Random;
 import java.util.Scanner;
 
 public class B_PlayGame {
+    public static String[] scorelist = new String[20];
+    public static String[] myarray = new String[10];
+    public static String[] myarrayisimler = new String[10];
     public static void main(String[] args) {
+
         // Classes of Random and Scanner
         Scanner scan = new Scanner(System.in);
         Random rd = new Random();
@@ -23,19 +31,11 @@ public class B_PlayGame {
 
         String[] deck = Deck.createDeck();
 
-        for (String value : deck) {
-            System.out.println(value);
-        }
-//        String[] deck = {"#J","#2","#3","#4","#5","#6","#7","#8","#9","#10","#11","#12","#13",
-//                         "$J","$2","$3","$4","$5","$6","$7","$8","$9","$10","$11","$12","$13",
-//                         "%J","%2","%3","%4","%5","%6","%7","%8","%9","%10","%11","%12","%13",
-//                         "&J","&2","&3","&4","&5","&6","&7","&8","&9","&10","&11","&12","&13"};
-
         System.out.println("WELCOME THE GAME YOUR COMPETITOR WILL BE COMPUTER PLEASE ENTER YOUR NAME :");
 
-        String dealersName = scan.nextLine();
+        String dealersName = scan.nextLine(); // The dealer enter his/her name.
         dealer.setName(dealersName);
-
+        readFile(dealer.getName(), dealer.getPoint());
         // dealer mixes the deck
         deck = dealer.mixDeck(deck);
 
@@ -52,13 +52,11 @@ public class B_PlayGame {
         int computerPoint = computer.getPoint();
 
         // Amount of Cards on the board
-        int cardsontheboard = 4;
+        int Amount_of_cards_on_the_board = 4; //before start 4cards putted the board
+
         // Cards are taken by gamers
         String[] dealer_take =  dealer.getCards_taken_from_board();
         String[] computer_take =  computer.getCards_taken_from_board();
-        //        Number of cards players take
-    //        int dealercardstake = dealer.getAmount_card_taken();
-    //        int computercarstake = computer.getAmount_card_taken();
 
         // dealer separates cards
         dealer.separateCards(dealersHand,computerHand,deck);
@@ -67,33 +65,19 @@ public class B_PlayGame {
         String[] cardsOnBoard = dealer.putCards_toBoard(deck);
 
         // first card on the board are determined
-        String FirstCard = dealer.showFirstCard(cardsOnBoard);
+        String FirstCard_ontheboard = dealer.showFirstCard(cardsOnBoard);
 
-        deck = dealer.UpdateCurrentCardsBeforeStart(deck);
+        deck = dealer.UpdateCurrentCardsBeforeStart(deck); // After cards are separated before the game
 
         System.out.println("Game starts with " + dealer.getName() );
 
-        System.out.println(FirstCard);
-        //System.out.println("Cards on the board");
-
-        //System.out.println();
-        boolean isDealer_took_cards = false;
-        boolean isComputer_took_cards = false;
-
-
-        //int tur = 1;
-
-//        System.out.println("Length of deck " + deck.length);
-//        System.out.println("length of dealers hand " + 4);
-//        System.out.println("length of computers hand " + 4);
-//        System.out.println("Cards on the board " + cardsontheboard);
-//        System.out.println("Computer take" + computer.getAmount_card_taken());
-//        System.out.println(dealer.getName() + "take " + dealer.getAmount_card_taken());
-
+        boolean isDealer_took_cards = false; // this check dealer make pişti or not
+        boolean isComputer_took_cards = false; // this check dealer make pişti or no
+            System.out.println("Please type the card you want to play that is one of the hand \n " +
+                                "If you do not choose cards in the deck, the game is finish \n " +
+                                "While you typing choose one card on the hand type it you played, your card that played shown above the board then next players turn updated board is shown");
         // Game loop
         while (true){
-//            System.out.println("Please type the card you want to play that is one of the hand \n " +
-//                                "If you do not choose cards in the deck, the game is finish");
 
 
             boolean who_take_final = true;
@@ -130,50 +114,53 @@ public class B_PlayGame {
             if (chosenCard_not_exist){
                 System.out.println("You did not choose correct card");
                 // the game will be finish
-                // new method can be developed
+
                 break;
             }
 
             // chosen card is same with card on the board
-            if (isSame(chosenCard,FirstCard)){
-                if (FirstCard.equals("&10")) {
+            if (isSame(chosenCard,FirstCard_ontheboard)){ // if they are same the function returns true
+                if (FirstCard_ontheboard.equals("&10")) {
                     dealersPoint += 3;
-                }  else if (FirstCard.equals("$2")) {
+                }  else if (FirstCard_ontheboard.equals("$2")) {
                     dealersPoint += 2;
                 }
-                dealersPoint += 10; // dealer gain 3 points
+                dealersPoint += 10; // dealer gain 10 points
                 dealer.setPoint(dealersPoint); // current point are assigned to dealers point
-                FirstCard = null;
-                cardsontheboard ++ ;
-                dealer.setAmount_card_taken(cardsontheboard + dealer.getAmount_card_taken());
-                cardsontheboard = 0;
-                isDealer_took_cards = true; // to understand dealer  took cards
+                FirstCard_ontheboard = null;
+                Amount_of_cards_on_the_board++ ; // you put card the board them make pişti
+                dealer.setAmount_card_taken(Amount_of_cards_on_the_board + dealer.getAmount_card_taken());
+                Amount_of_cards_on_the_board = 0; // After pişti there are not any card on the board
+                isDealer_took_cards = true; // to understand dealer took cards
 
             } else {
-                FirstCard = chosenCard;
-                cardsontheboard ++;
+                FirstCard_ontheboard = chosenCard; // card above on the board become chosen card
+                Amount_of_cards_on_the_board++; // you put card the board
             }
 
-            if (isDealer_took_cards){
-                System.out.println("Dealer take before update");
-                showboard(dealer_take);
-                System.out.println("****");
-                System.out.println();
+            if (isDealer_took_cards){  // If the gamer took cards this loop works
+//                System.out.println("Dealer take before update");
+//                showboard(dealer_take);
+//                System.out.println("****");
+//                System.out.println();
                 int z = 0;
                 for (int i = 0 ; i < dealer_take.length ; i  ++){
-                    if (dealer_take[i] == null){
+                    //Despite the possibility of players getting all the cards,
+                    // an array of 52 is created and starts to be filled from the "null" place each cycle.
+                    if (dealer_take[i] == null){ // It detects from which index it is empty.
                         z = i;
                         break;
                     }
                 }
-                dealer_take[z] = chosenCard;
-                for (int i = 0; i + z + 1< cardsOnBoard.length ; i ++){
-                    dealer_take[z + i + 1] = cardsOnBoard[i];
+                dealer_take[z] = chosenCard;                                /* cards are moved to dealer taken cards array*/
+                for (int i = 0; i + z + 1< cardsOnBoard.length ; i ++){      /* cards are moved to dealer taken cards array*/
+                    dealer_take[z + i + 1] = cardsOnBoard[i];                /* cards are moved to dealer taken cards array*/
                 }
-                isDealer_took_cards = false;
+                isDealer_took_cards = false;    // in the next turn if the dealer won't cards, he/she cannot take cards this prevents that
                 who_take_final = false;
                 System.out.println("Dealer take");
                 showboard(dealer_take);
+                System.out.println();
                 System.out.println("****");
                 System.out.println();
             }
@@ -183,7 +170,7 @@ public class B_PlayGame {
             showboard(cardsOnBoard);
             System.out.println();
             System.out.println("------------------- BOARD ----------------------");
-            cardsOnBoard = updateBoard(cardsOnBoard,FirstCard);
+            cardsOnBoard = updateBoard(cardsOnBoard,FirstCard_ontheboard); // After each card putted on the board, the board are updated
             System.out.println();
 
 
@@ -191,7 +178,7 @@ public class B_PlayGame {
                 if (dealersHand[i] == null){ //if it is already null , this prevents any error
                     continue;
                 }
-                if(dealersHand[i].equals(chosenCard)){
+                if(dealersHand[i].equals(chosenCard)){ //  To prevent to play same card, the index are made null
                     dealersHand[i] = null;
                 }
             }
@@ -204,10 +191,6 @@ public class B_PlayGame {
             System.out.println("------------------- BOARD ----------------------");
             System.out.println();
 
-            //int index; // the card which is in the place in the deck.
-
-            // this loop check whether the same card or index chosen more than one time or not
-            // if not chosen before , loop complete it works.
 
             System.out.println("Computers' hand");
             for (String s : computerHand) {
@@ -215,85 +198,33 @@ public class B_PlayGame {
             }
             System.out.println();
 
-            String computer_played = determineComputerWhich_cardPlay( computerHand, FirstCard,  cardsOnBoard);
+            String computer_played = determineComputerWhich_cardPlay( computerHand, FirstCard_ontheboard,  cardsOnBoard);
 
-//            for (int i = 0 ; i < computerHand.length ; i++){
-//                if (computerHand[i] == null){
-//                    continue;
-//                }
-//                if(("J" + "").equals(computerHand[i].charAt(1) + "")){
-//                    if (cardsOnBoard[0] == null){  // this prevents that when the board is empty , play "J"
-//                        continue;
-//                    }
-//                    doesHaveJ = true; // if J available in the hand it becomes true
-//                    b = i ; // where is J
-//                    break;
-//                }
-//                if (computer.isSame(computerHand[i],FirstCard)){
-//                    doesHaveSameCard = true; // If same card in the hand, it becomes true
-//                    a = i ; // where is same card
-//                    break;
-//                }
-//            }
-//            if (doesHaveJ){ //Firstly it is checked which is J or not, if it is J ; J is played.
-//                index = b;
-//            }
-//            else if (doesHaveSameCard){
-//                index = a; // if computer has already same card that is same with FirstCard this
-//
-//            } else { // else Normal process continue
-//                while (true) {
-//
-//                    index = rd.nextInt(4); // an index is chosen randomly
-//
-//                    if (computerHand[index] != null) {
-//                        // if the index is not null process can be finish , but it is not null process continue
-//                        //System.out.println("Yes this did not be chosen go on ");
-//                        break;
-//                    }
-//
-//                    // this protects the code to go infinite
-//
-//                    boolean isAll_null = false;
-//
-//                    for (int i = 0; i < 4; i++) {
-//                        if (computerHand[i] != null) {
-//                            // if one index of the hand is not null, the loop still can continue
-//                            isAll_null = true;
-//                            //break; // BİLGİSAYAR EKLEDİ
-//                        }
-//                    }
-//                    if (!isAll_null) {
-//                        break;
-//                    }
-//                }
-//            }
-
-            if (isSame(computer_played,FirstCard)){  // if computers' card is same with boarded card
-                if (FirstCard.equals("&10")) {
+            if (isSame(computer_played,FirstCard_ontheboard)){  // if computers' card is same with boarded card
+                if (FirstCard_ontheboard.equals("&10")) {
                     computerPoint += 3;
-                }  else if (FirstCard.equals("$2")) {
+                }  else if (FirstCard_ontheboard.equals("$2")) {
                     computerPoint += 2;
                 }
                 computerPoint += 10; // 10 points gains
                 computer.setPoint(computerPoint); // points are updated
-                FirstCard = null; // any cards on the board
-                cardsontheboard ++; // add card played
-                computer.setAmount_card_taken(cardsontheboard + computer.getAmount_card_taken()); // update amount of cards
-                cardsontheboard = 0; // make it zero
+                FirstCard_ontheboard = null; // any cards on the board
+                Amount_of_cards_on_the_board++; // add card played
+                computer.setAmount_card_taken(Amount_of_cards_on_the_board + computer.getAmount_card_taken()); // update amount of cards
+                Amount_of_cards_on_the_board = 0; // make it zero
                 isComputer_took_cards = true;
 
             } else {
 
-                FirstCard = computer_played;
-                cardsontheboard++;
+                FirstCard_ontheboard = computer_played;
+                Amount_of_cards_on_the_board++;
             }
 
             if (isComputer_took_cards){
-                System.out.println("computer take before update");
-                showboard(computer_take);
-                System.out.println("****");
-                System.out.println();
+//                System.out.println("computer take before update");
+//                showboard(computer_take);
+//                System.out.println("****");
+//                System.out.println();
                 int q = 0;
                 for (int i = 0 ; i < computer_take.length ; i  ++){
                     if (computer_take[i] == null){
@@ -307,10 +238,10 @@ public class B_PlayGame {
                 }
 
                 isComputer_took_cards = false;
-                System.out.println("computer take");
-                showboard(computer_take);
-                System.out.println("****");
-                System.out.println();
+//                System.out.println("computer take");
+//                showboard(computer_take);
+//                System.out.println("****");
+//                System.out.println();
             }
 
             System.out.println();
@@ -319,7 +250,7 @@ public class B_PlayGame {
             showboard(cardsOnBoard);
             System.out.println();
             System.out.println("------------------- BOARD ----------------------");
-            cardsOnBoard =updateBoard(cardsOnBoard,FirstCard);
+            cardsOnBoard =updateBoard(cardsOnBoard,FirstCard_ontheboard);
             System.out.println();
 
             for (int i = 0 ; i < computerHand.length ; i++){
@@ -351,57 +282,60 @@ public class B_PlayGame {
             // when every card is separated, length of deck become zero
             if (deck.length == 0 && isAll_null_computer && isAll_null_dealer){ // this control all cards are played and separated
                 System.out.println("//////////////////////////////////////////////");
-//                System.out.println();
-//                System.out.println("alis hand");
-//                for (int i = 0 ; i < dealersHand.length ; i ++ ){
-//                    System.out.print(dealersHand[i] + " ");
-//                }
-//                System.out.println();
-//                System.out.println("Computers hand");
-//                for (int i = 0 ; i < dealersHand.length ; i ++ ){
-//                    System.out.print(computerHand[i] + " ");
-//                }
-//                System.out.println();
+                if (cardsOnBoard[0] != null) {
+                    if (!who_take_final) {
+                        int last = 0;
+                        for (int i = 0; i < dealer_take.length; i++) {
+                            if (dealer_take[i] == null) {
+                                last = i;
+                                break;
+                            }
+                        }
+                        System.out.println("dealer alırkenki tahta");
+                        showboard(cardsOnBoard);
+                        for (int i = 0; i + last + 1 < cardsOnBoard.length; i++) {
+                            dealer_take[last + i + 1] = cardsOnBoard[i];
+                        }
+                        computer.setAmount_card_taken(computer.getAmount_card_taken() + Amount_of_cards_on_the_board);
+                        cardsOnBoard = updateBoard(cardsOnBoard, null);
+                        System.out.println("sonuncuyu dealer aldı");
+                        Amount_of_cards_on_the_board = 0;
+
+                    } else {
+                        int s = 0;
+                        for (int i = 0; i < computer_take.length; i++) {
+                            if (computer_take[i] == null) {
+                                s = i;
+                                break;
+                            }
+                        }
+                        System.out.println("computer alırkenki tahta");
+                        showboard(cardsOnBoard);
+                        computer_take[s] = computer_played;
+                        for (int i = 0; i + s + 1 < cardsOnBoard.length; i++) {
+                            computer_take[s + i + 1] = cardsOnBoard[i + 1];
+                        }
+                        System.out.println("sonuncuyu computer aldı");
+                        dealer.setAmount_card_taken(dealer.getAmount_card_taken() + Amount_of_cards_on_the_board);
+                        cardsOnBoard = updateBoard(cardsOnBoard, null);
+                        Amount_of_cards_on_the_board = 0;
+                    }
+                }
+                writeFile(dealer.getName(), dealer.getPoint());
+                System.out.println("The Game is over ");
+
                 System.out.println("Information about statement of cards");
                 System.out.println("Length of deck " + deck.length);
                 System.out.println("length of dealers hand " + 0);
                 System.out.println("length of computers hand " + 0);
-                System.out.println("Cards on the board " + cardsontheboard);
+                System.out.println("Cards on the board " + Amount_of_cards_on_the_board);
                 System.out.println("Computer take" + computer.getAmount_card_taken());
                 System.out.println(dealer.getName() + "take " + dealer.getAmount_card_taken());
                 System.out.println();
                 System.out.println("//////////////////////////////////////////////");
 
-                System.out.println("The Game is over ");
 
-                if (!who_take_final){
-                    int last = 0;
-                    for (int i = 0 ; i < dealer_take.length ; i  ++){
-                        if (dealer_take[i] == null){
-                            last = i;
-                            break;
-                        }
-                    }
-                    for (int i = 0; i + last + 1 < cardsOnBoard.length ; i ++){
-                        dealer_take[last + i + 1] = cardsOnBoard[i];
-                    }
-                    cardsOnBoard = updateBoard(cardsOnBoard,null);
-                    System.out.println("sonuncuyu dealer aldı");
-                } else {
-                    int s = 0;
-                    for (int i = 0 ; i < computer_take.length ; i  ++){
-                        if (computer_take[i] == null){
-                            s = i;
-                            break;
-                        }
-                    }
-                    computer_take[s] = computer_played;
-                    for (int i = 0; i + s + 1< cardsOnBoard.length ; i ++){
-                        computer_take[s + i + 1]  = cardsOnBoard[i];
-                    }
-                    System.out.println("sonuncuyu computer aldı");
-                    cardsOnBoard = updateBoard(cardsOnBoard,null);
-                }
+
 //              System.out.println("computers point is " + computer.getPoint());
 //              System.out.println(dealer.getName() + " point is " + dealer.getPoint());
                 if (computer.getAmount_card_taken() > dealer.getAmount_card_taken()){
@@ -435,6 +369,7 @@ public class B_PlayGame {
                 }else {
                     System.out.println("Everyone won");
                 }
+                showTable();
                 break;
             }
 
@@ -451,31 +386,31 @@ public class B_PlayGame {
     }
 
     public static void showboard(String[] new_array){
-        if (new_array[0] == null){
+        if (new_array[0] == null){ // if the board are is empty all indezes are null sothat to check 0. index is enough
             System.out.print("Empty");
         }
         for (int i = 0 ; i < new_array.length; i++){
-            if (new_array[i] == null){
+            if (new_array[i] == null){ // Detects where null indexes start to suppress until the null part comes
                 break;
             }
             System.out.print(new_array[i] + " ");
         }
     }
-    public static String[] updateBoard(String[] array, String choosen_card) {
+    public static String[] updateBoard(String[] array, String top_card_ontheboard) {
         String[] new_array = new String[52];
-        if (choosen_card == null) {
+        if (top_card_ontheboard == null) { // it means cards on the board are taken so that the board has to become empty
             for (int i = 0; i < array.length; i++) {
-                new_array[i] = null;
+                new_array[i] = null; // all index become null 
             }
 
         } else {
             for (int i = 0; i < array.length; i++) {
-                if (array[i] == null) {
+                if (array[i] == null) { // detect that where is the starts be null 
                     break;
                 }
-                new_array[i + 1] = array[i];
+                new_array[i + 1] = array[i]; 
             }
-            new_array[0] = choosen_card;
+            new_array[0] = top_card_ontheboard; // Firsly choose
 
         }
         return new_array;
@@ -487,14 +422,14 @@ public class B_PlayGame {
 
         int a = 0;
         int b = 0;
-        int index;
+        int index; // the card which is in the place in the deck.
 
         for (int i = 0; i < computerHand.length; i++) {
-            if (computerHand[i] == null) {
+            if (computerHand[i] == null) { // if the card have been played, continue to check
                 continue;
             }
             if (("J" + "").equals(computerHand[i].charAt(1) + "")) {
-                if (cardsOnBoard[0] == null) {  // this prevents that when the board is empty , play "J"
+                if (cardsOnBoard[0] == null) {  // this prevents that when the board is empty , do not play "J"
                     continue;
                 }
                 doesHaveJ = true; // if J available in the hand it becomes true
@@ -514,10 +449,10 @@ public class B_PlayGame {
 
         } else { // else Normal process continue
             while (true) {
-
                 index = rd.nextInt(4); // an index is chosen randomly
 
                 if (computerHand[index] != null) {
+                    // this loop check whether the same card or index chosen more than one time or not
                     // if the index is not null process can be finish , but it is not null process continue
                     //System.out.println("Yes this did not be chosen go on ");
                     break;
@@ -525,37 +460,107 @@ public class B_PlayGame {
 
                 // this protects the code to go infinite
 
-                boolean isAll_null = false;
+                boolean is_not_All_null = false;
 
                 for (int i = 0; i < 4; i++) {
                     if (computerHand[i] != null) {
                         // if one index of the hand is not null, the loop still can continue
-                        isAll_null = true;
-
-
+                        is_not_All_null = true;
+                        break;
                     }
                 }
-                if (!isAll_null) {
+                if (!is_not_All_null) {
                     break;
                 }
             }
-
-        } return computerHand[index];
+            // it returns the index are chosen
+        } return computerHand[index] ;
     }
     public static boolean isSame(String cardHand, String card_on_board) {
-        if (card_on_board == null || cardHand == null) {
+        if (card_on_board == null || cardHand == null) { // to prevent to get any error about null string 
             return false;
-        } else if ((cardHand.charAt(1) + "").equals("J" + "")){
+        } else if ((cardHand.charAt(1) + "").equals("J" + "")){ // To check card is J or not
             return true;
-        } else if (cardHand.length() == 3 && card_on_board.length() == 3){
+        } else if (cardHand.length() == 3 && card_on_board.length() == 3){ // if the length is 3 (&10,%10) these are evaluated in this part
             return (cardHand.charAt(1) + cardHand.charAt(2) + "").equals(card_on_board.charAt(1) + card_on_board.charAt(2) + "");
-        } else if (cardHand.length() == 2 && card_on_board.length() == 2){
+        } else if (cardHand.length() == 2 && card_on_board.length() == 2){ // if the length is 3 (&10,%10) these are evaluated in this part
             return (cardHand.charAt(1) + "").equals(card_on_board.charAt(1) + "");
         } else {
-            return false;
+            return false; 
         }
 
     }
+
+    public static void readFile(String gamername, int point){
+        Scanner scan = null;
+        String[] fields = {"Name","Point"};
+        try {
+            int j = 0;
+            int k =0;
+            scan = new Scanner(Paths.get("Scorelist.txt"));
+            while (scan.hasNextLine()){
+                String[] information = scan.nextLine().split(",");
+                for (int i = 0 ; i < fields.length  ; i ++){
+                    System.out.println(fields[i] + information[k] );
+                    k ++ ;
+                    if (k == 2){
+                        k = 0;
+                    }
+                }
+                System.out.println("---------------");
+                String s = Integer.toString(point);
+                scorelist[j] = gamername ;
+                scorelist[j + 1] = s;
+                j += 2;
+                if(j==20){
+                    break;
+                }
+            }
+            showboard(scorelist);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (scan != null){
+                scan.close();
+            }
+        }
+    }
+
+    public static void writeFile(String name, int point){
+        Scanner scan = new Scanner(System.in);
+        Formatter f  = null ;
+        FileWriter fw = null;
+
+        if (scorelist[19] == null){
+            scorelist[19] = "0";
+        }
+        if (Integer.parseInt(scorelist[19]) < point){
+            scorelist[19] = Integer.toString(point);
+            scorelist[18] = name;
+        }
+        try {
+            fw = new FileWriter("Scorelist.txt",true);
+            f = new Formatter(fw);
+            String s = Integer.toString(point);
+            f.format(" %s, %s\n ", name, s);
+            fw.close();
+        } catch (Exception e){
+            System.err.println("Something went wrong");
+        }finally {
+            if (f != null){
+                f.close();
+            }
+        }
+    }
+
+    public static void showTable(){
+        for (int i = 0 ; i  < scorelist.length - 1; i += 2){
+            System.out.println( " name : " + scorelist[i] + " Score: " + scorelist[i + 1] );
+        }
+    }
+
+
 
 
 }
