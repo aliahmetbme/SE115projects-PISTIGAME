@@ -1,10 +1,9 @@
 /*
-CREATED BY ALİ AHMET ERDOĞDU
-DECEMBER 2022
+                                CREATED BY ALİ AHMET ERDOĞDU
+                                      DECEMBER 2022
  */
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Formatter;
 import java.util.Random;
@@ -36,6 +35,7 @@ public class B_PlayGame {
         String dealersName = scan.nextLine(); // The dealer enter his/her name.
         dealer.setName(dealersName);
         readFile();
+        showboard(myarrayisimler);
         // dealer mixes the deck
         deck = dealer.mixDeck(deck);
 
@@ -153,12 +153,12 @@ public class B_PlayGame {
                     dealer_take[z + i + 1] = cardsOnBoard[i];                /* cards are moved to dealer taken cards array*/
                 }
                 isDealer_took_cards = false;    // in the next turn if the dealer won't cards, he/she cannot take cards this prevents that
-                who_take_final = false;
-                System.out.println("Dealer take");
-                showboard(dealer_take);
-                System.out.println();
-                System.out.println("****");
-                System.out.println();
+                who_take_final = false;         // if it stays false at the end of the game dealer take last cards on the board
+//                System.out.println("Dealer take");
+//                showboard(dealer_take);
+//                System.out.println();
+//                System.out.println("****");
+//                System.out.println();
             }
 
             System.out.println("------------------- BOARD ----------------------");
@@ -188,13 +188,15 @@ public class B_PlayGame {
             System.out.println();
 
 
-            System.out.println("Computers' hand");
-            for (String s : computerHand) {
-                System.out.print(s + " ");
-            }
-            System.out.println();
+//            System.out.println("Computers' hand");
+//            for (String s : computerHand) {
+//                System.out.print(s + " ");
+//            }
+//            System.out.println();
 
             String computer_played = determineComputerWhich_cardPlay( computerHand, FirstCard_ontheboard,  cardsOnBoard);
+
+            System.out.println(" COMPUTER PLAYED ");
 
             if (isSame(computer_played,FirstCard_ontheboard)){  // if computers' card is same with boarded card
                 if (FirstCard_ontheboard.equals("&10")) {
@@ -284,7 +286,7 @@ public class B_PlayGame {
                         for (int i = 0; i + last + 1 < cardsOnBoard.length; i++) {
                             dealer_take[last + i + 1] = cardsOnBoard[i];
                         }
-                        computer.setAmount_card_taken(computer.getAmount_card_taken() + Amount_of_cards_on_the_board);
+                        dealer.setAmount_card_taken(dealer.getAmount_card_taken() + Amount_of_cards_on_the_board);
                         cardsOnBoard = updateBoard(cardsOnBoard, null);
                         System.out.println("sonuncuyu dealer aldı");
                         Amount_of_cards_on_the_board = 0;
@@ -304,12 +306,13 @@ public class B_PlayGame {
                             computer_take[s + i + 1] = cardsOnBoard[i + 1];
                         }
                         System.out.println("sonuncuyu computer aldı");
-                        dealer.setAmount_card_taken(dealer.getAmount_card_taken() + Amount_of_cards_on_the_board);
+                        computer.setAmount_card_taken(computer.getAmount_card_taken() + Amount_of_cards_on_the_board);
                         cardsOnBoard = updateBoard(cardsOnBoard, null);
                         Amount_of_cards_on_the_board = 0;
                     }
                 }
                 System.out.println("//////////////////////////////////////////////");
+
                 System.out.println("The Game is over ");
                 System.out.println("Information about statement of cards");
                 System.out.println("Length of deck " + deck.length);
@@ -319,8 +322,11 @@ public class B_PlayGame {
                 System.out.println("Computer take" + computer.getAmount_card_taken());
                 System.out.println(dealer.getName() + "take " + dealer.getAmount_card_taken());
                 System.out.println();
+
                 System.out.println("//////////////////////////////////////////////");
 
+
+                // To find who take more cards
                 if (computer.getAmount_card_taken() > dealer.getAmount_card_taken()){
                     computerPoint += 3;
                     computer.setPoint(computerPoint);
@@ -346,19 +352,12 @@ public class B_PlayGame {
                 System.out.println("computers point is " + computer.getPoint());
                 System.out.println(dealer.getName() + " point is " + dealer.getPoint());
 
-                int fileindex = 9;
-
-                cleanlist();
-                firselemanlist(dealer.getName(), Integer.toString(dealer.getPoint()));
-                while (true) {
-                    writeFilelast(fileindex);
-                    fileindex -= 1;
-                    if (fileindex == 0) {
-                        break;
-                    }
+                // if dealers point larger than the least point it enters the list
+                if (dealer.getPoint() > Integer.parseInt(myarray[9].trim())){
+                    myarray[9] = Integer.toString(dealer.getPoint());
+                    myarrayisimler[9] = dealer.getName();;
                 }
-
-
+                writefile(9);
 
                 if(computer.getPoint() > dealer.getPoint()){
                     System.out.println("**************Computer won ***************");
@@ -382,7 +381,7 @@ public class B_PlayGame {
             }
         }
     }
-
+    // METHODS //
     public static void showboard(String[] new_array){
         if (new_array[0] == null){ // if the board are is empty all indexes are null so that to check 0. index is enough
             System.out.print("Empty");
@@ -488,86 +487,61 @@ public class B_PlayGame {
         }
 
     }
-
-    // File //
     public static void readFile(){
-        Scanner scan = null;
-        String[] fields = {"Name --> ","Point --> "};
-        try {
-            int j = 0;
-            int k = 0;
-            int index = 0;
-            scan = new Scanner(Paths.get("Scorelist.txt"));
-            while (scan.hasNextLine()){
-                String[] information = scan.nextLine().split(",");
+    Scanner scan = null;
+    String[] fields = {"Name --> ","Point --> "};
+    try {
+        int j = 0;
+        int k = 0;
+        int index = 0;
+        scan = new Scanner(Paths.get("Scorelist.txt"));
+        while (scan.hasNextLine()){
+            String[] information = scan.nextLine().split(",");
 
-                for (int i = 0 ; i < fields.length  ; i ++){
-                    System.out.println(fields[i] + information[k] );
-                    if (k == 0) {
-                        myarray[index] = information[1];
-                        myarrayisimler[index] = information[0];
-                        index++;
-                    }
-                    k ++ ;
-                    if (k == 2){
-                        k = 0;
-                    }
+            for (int i = 0 ; i < fields.length  ; i ++){
+                System.out.println(fields[i] + information[k] );
+                if (k == 0) {
+                    myarray[index] = information[1];
+                    myarrayisimler[index] = information[0];
+                    index++;
                 }
-                System.out.println("---------------");
-
-                scorelist[2 * j] = myarrayisimler[j];
-                scorelist[2 * j + 1] = myarray[j];
-                j += 1;
-                if (j == 10) {
-                    break;
+                k ++ ;
+                if (k == 2){
+                    k = 0;
                 }
             }
-            int temppoint = 0;
-            String tempnames = null;
-            for(int i = 0 ; i < myarray.length ; i ++) {
-                int J = i;
-                while (J > 0) {
-                    if (myarray[J] == null) {
-                        for (int a = 0; i < myarray.length; a++) {
-                            System.out.print(myarray[a] + " ");
-                        }
-                        System.out.println("problem");
-                        ;
-                    }
-                    if (Integer.parseInt(myarray[J - 1].trim()) > Integer.parseInt(myarray[J].trim())) {
-                        temppoint = Integer.parseInt(myarray[J - 1].trim());
-                        myarray[J - 1] = myarray[J];
-                        myarray[J] = Integer.toString(temppoint);
+            System.out.println("---------------");
 
-                        tempnames = myarrayisimler[J - 1];
-                        myarrayisimler[J - 1] = myarrayisimler[J];
-                        myarrayisimler[J] = tempnames;
-                    }
-                    J--;
-                }
-            }
-            int y = 0;
-            while (true) {
-                scorelist[2 * y] = myarrayisimler[y];
-                scorelist[2 * y + 1] = myarray[y];
-                y += 1;
-                if (y == 10) {
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (scan != null){
-                scan.close();
+            scorelist[2 * j] = myarrayisimler[j];
+            scorelist[2 * j + 1] = myarray[j];
+            j += 1;
+            if (j == 10) {
+                break;
             }
         }
+        int y = 0;
+        while (true) {
+            scorelist[2 * y] = myarrayisimler[y];
+            scorelist[2 * y + 1] = myarray[y];
+            y += 1;
+            if (y == 10) {
+                break;
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        if (scan != null){
+            scan.close();
+        }
     }
-    public static void writeFilelast(int index ){
-        Formatter f  = null ;
+}
+    public static void writefile(int index) {
+        Formatter f = null;
         FileWriter fw = null;
         int temppoint = 0;
         String tempnames = null;
+
         for(int i = 0 ; i < myarray.length ; i ++) {
             int J = i;
             while (J > 0) {
@@ -591,56 +565,23 @@ public class B_PlayGame {
             }
         }
         try {
-
-            fw = new FileWriter("Scorelist.txt",true);
-            f = new Formatter(fw);
-            f.format(" %s, %s\n ", myarrayisimler[index].trim(), myarray[index].trim());
-
-
-        } catch (Exception e){
-            System.err.println("Something went wrong");
-        }finally {
-            if (f != null){
-                f.close();
-            }
-        }
-
-    }
-    public static void cleanlist() {
-        Formatter f = null;
-        try {
             f = new Formatter("Scorelist.txt");
-            f.format(" %s, %s\n ", null, null);
-
+            while (true) {
+                f.format("%s, %s\n", myarrayisimler[index], myarray[index]);
+                index --;
+                if (index == -1){
+                    break;
+                }
+            }
 
         } catch (Exception e) {
-            System.err.println("Something went wrong");
+            System.err.println("Something went wrong.");
         } finally {
             if (f != null) {
                 f.close();
             }
         }
     }
-    public static void firselemanlist(String name, String point){
-        Formatter f  = null ;
-        try {
-
-
-            f = new Formatter("Scorelist.txt");
-            f.format(" %s, %s\n ", name, point);
-
-
-        } catch (Exception e){
-            System.err.println("Something went wrong");
-        }finally {
-            if (f != null){
-                f.close();
-            }
-        }
-
-    }
-
-    // File //
 }
 
 
