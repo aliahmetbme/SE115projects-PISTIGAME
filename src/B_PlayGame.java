@@ -35,7 +35,7 @@ public class B_PlayGame {
 
         String dealersName = scan.nextLine(); // The dealer enter his/her name.
         dealer.setName(dealersName);
-        readFile(dealer.getName(), dealer.getPoint());
+        readFile();
         // dealer mixes the deck
         deck = dealer.mixDeck(deck);
 
@@ -321,9 +321,8 @@ public class B_PlayGame {
                         Amount_of_cards_on_the_board = 0;
                     }
                 }
-                writeFile(dealer.getName(), dealer.getPoint());
-                System.out.println("The Game is over ");
 
+                System.out.println("The Game is over ");
                 System.out.println("Information about statement of cards");
                 System.out.println("Length of deck " + deck.length);
                 System.out.println("length of dealers hand " + 0);
@@ -361,6 +360,20 @@ public class B_PlayGame {
 
                 System.out.println("computers point is " + computer.getPoint());
                 System.out.println(dealer.getName() + " point is " + dealer.getPoint());
+
+                int mama = 9;
+
+                cleanlist();
+                firselemanlist(dealer.getName(), Integer.toString(dealer.getPoint()));
+                while (true) {
+                    writeFilelast(mama);
+                    mama -= 1;
+                    if (mama == 0) {
+                        break;
+                    }
+                }
+
+
 
                 if(computer.getPoint() > dealer.getPoint()){
                     System.out.println("**************Computer won ***************");
@@ -491,33 +504,120 @@ public class B_PlayGame {
 
     }
 
-    public static void readFile(String gamername, int point){
+//    public static void readFile(String gamername, int point){
+//        Scanner scan = null;
+//        String[] fields = {"Name","Point"};
+//        try {
+//            int j = 0;
+//            int k =0;
+//            scan = new Scanner(Paths.get("Scorelist.txt"));
+//            while (scan.hasNextLine()){
+//                String[] information = scan.nextLine().split(",");
+//                for (int i = 0 ; i < fields.length  ; i ++){
+//                    System.out.println(fields[i] + information[k] );
+//                    k ++ ;
+//                    if (k == 2){
+//                        k = 0;
+//                    }
+//                }
+//                System.out.println("---------------");
+//                String s = Integer.toString(point);
+//                scorelist[j] = gamername ;
+//                scorelist[j + 1] = s;
+//                j += 2;
+//                if(j==20){
+//                    break;
+//                }
+//            }
+//            showboard(scorelist);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (scan != null){
+//                scan.close();
+//            }
+//        }
+//    }
+
+    public static void showTable(){
+        for (int i = 0 ; i  < myarray.length - 1; i += 2){
+            System.out.println( " name : " + myarrayisimler[i] + " Score: " + myarray[i] );
+        }
+    }
+    public static void readFile(){
         Scanner scan = null;
-        String[] fields = {"Name","Point"};
+        String[] fields = {"Name --> ","Point --> "};
         try {
             int j = 0;
-            int k =0;
+            int k = 0;
+            int index = 0;
             scan = new Scanner(Paths.get("Scorelist.txt"));
             while (scan.hasNextLine()){
                 String[] information = scan.nextLine().split(",");
+
                 for (int i = 0 ; i < fields.length  ; i ++){
                     System.out.println(fields[i] + information[k] );
+                    if (k == 0) {
+                        myarray[index] = information[1];
+                        myarrayisimler[index] = information[0];
+                        index++;
+                    }
                     k ++ ;
                     if (k == 2){
                         k = 0;
                     }
                 }
                 System.out.println("---------------");
-                String s = Integer.toString(point);
-                scorelist[j] = gamername ;
-                scorelist[j + 1] = s;
-                j += 2;
-                if(j==20){
+
+                scorelist[2 * j] = myarrayisimler[j];
+                //System.out.println(myarrayisimler[j] + "immm");
+                scorelist[2 * j + 1] = myarray[j];
+                //System.out.println(myarray[j] + "daat");
+
+                j += 1;
+                if (j == 10) {
                     break;
                 }
             }
-            showboard(scorelist);
+            int temppoint = 0;
+            String tempnames = null;
+            for(int i = 0 ; i < myarray.length ; i ++) {
+                int J = i;
+                while (J > 0) {
+                    if (myarray[J] == null) {
+                        for (int a = 0; i < myarray.length; a++) {
+                            System.out.print(myarray[a] + " ");
+                        }
+                        System.out.println("problem");
+                        ;
+                    }
+                    if (Integer.parseInt(myarray[J - 1].trim()) > Integer.parseInt(myarray[J].trim())) {
+                        temppoint = Integer.parseInt(myarray[J - 1].trim());
+                        myarray[J - 1] = myarray[J];
+                        myarray[J] = Integer.toString(temppoint);
 
+                        tempnames = myarrayisimler[J - 1];
+                        myarrayisimler[J - 1] = myarrayisimler[J];
+                        myarrayisimler[J] = tempnames;
+                    }
+                    J--;
+                }
+            }
+
+
+            int y = 0;
+            while (true) {
+
+                scorelist[2 * y] = myarrayisimler[y];
+                scorelist[2 * y + 1] = myarray[y];
+
+
+                y += 1;
+                if (y == 10) {
+                    break;
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -526,25 +626,40 @@ public class B_PlayGame {
             }
         }
     }
-
-    public static void writeFile(String name, int point){
-        Scanner scan = new Scanner(System.in);
+    public static void writeFilelast(int index ){
         Formatter f  = null ;
         FileWriter fw = null;
+        int temppoint = 0;
+        String tempnames = null;
+        for(int i = 0 ; i < myarray.length ; i ++) {
+            int J = i;
+            while (J > 0) {
+                if (myarray[J] == null) {
+                    for (int a = 0; i < myarray.length; a++) {
+                        System.out.print(myarray[a] + " ");
+                    }
+                    System.out.println("problem");
+                    ;
+                }
+                if (Integer.parseInt(myarray[J - 1].trim()) > Integer.parseInt(myarray[J].trim())) {
+                    temppoint = Integer.parseInt(myarray[J - 1].trim());
+                    myarray[J - 1] = myarray[J];
+                    myarray[J] = Integer.toString(temppoint);
 
-        if (scorelist[19] == null){
-            scorelist[19] = "0";
-        }
-        if (Integer.parseInt(scorelist[19]) < point){
-            scorelist[19] = Integer.toString(point);
-            scorelist[18] = name;
+                    tempnames = myarrayisimler[J - 1];
+                    myarrayisimler[J - 1] = myarrayisimler[J];
+                    myarrayisimler[J] = tempnames;
+                }
+                J--;
+            }
         }
         try {
+
             fw = new FileWriter("Scorelist.txt",true);
             f = new Formatter(fw);
-            String s = Integer.toString(point);
-            f.format(" %s, %s\n ", name, s);
-            fw.close();
+            f.format(" %s, %s\n ", myarrayisimler[index].trim(), myarray[index].trim());
+
+
         } catch (Exception e){
             System.err.println("Something went wrong");
         }finally {
@@ -552,15 +667,76 @@ public class B_PlayGame {
                 f.close();
             }
         }
-    }
 
-    public static void showTable(){
-        for (int i = 0 ; i  < scorelist.length - 1; i += 2){
-            System.out.println( " name : " + scorelist[i] + " Score: " + scorelist[i + 1] );
+    }
+    public static void cleanlist() {
+        Formatter f = null;
+        //FileWriter fw = null;
+        try {
+
+            // fw = new FileWriter("Scorelist.txt",true);
+            f = new Formatter("Scorelist.txt");
+            f.format(" %s, %s\n ", null, null);
+
+
+        } catch (Exception e) {
+            System.err.println("Something went wrong");
+        } finally {
+            if (f != null) {
+                f.close();
+            }
         }
     }
+    public static void firselemanlist(String name, String point){
+
+
+        Formatter f  = null ;
+//
+//        int temppoint = 0;
+//        String tempnames = null;
+//        for(int i = 0 ; i < myarray.length ; i ++) {
+//            int J = i;
+//            while (J > 0) {
+//                if (myarray[J] == null) {
+//                    for (int a = 0; i < myarray.length; a++) {
+//                        System.out.print(myarray[a] + " ");
+//                    }
+//                    System.out.println("problem");
+//                    ;
+//                }
+//                if (Integer.parseInt(myarray[J - 1].trim()) > Integer.parseInt(myarray[J].trim())) {
+//                    temppoint = Integer.parseInt(myarray[J - 1].trim());
+//                    myarray[J - 1] = myarray[J];
+//                    myarray[J] = Integer.toString(temppoint);
+//
+//                    tempnames = myarrayisimler[J - 1];
+//                    myarrayisimler[J - 1] = myarrayisimler[J];
+//                    myarrayisimler[J] = tempnames;
+//                }
+//                J--;
+//            }
+//        }
+//
+//        if (Integer.parseInt(myarray[9].trim()) < Integer.parseInt(point.trim())){
+//            myarray[9] = (point);
+//            myarrayisimler[9] = name;
+//        }
+        try {
+
+
+            f = new Formatter("Scorelist.txt");
+            f.format(" %s, %s\n ", name, point);
+
+
+        } catch (Exception e){
+            System.err.println("Something went wrong");
+        }finally {
+            if (f != null){
+                f.close();
+            }
+        }
+
+    }}
 
 
 
-
-}
