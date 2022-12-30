@@ -75,7 +75,7 @@ public class B_PlayGame {
         boolean isComputer_took_cards = false; // this check dealer make pişti or no
             System.out.println("Please type the card you want to play that is one of the hand \n " +
                                 "If you do not choose cards in the deck, the game is finish \n " +
-                                "While you typing choose one card on the hand type it you played, your card that played shown above the board then next players turn updated board is shown");
+                                "While you typing choose one card on the hand type it you played, your card that played shown above the board then next players turn updated board is shown \n" );
         // Game loop
         while (true){
 
@@ -139,10 +139,6 @@ public class B_PlayGame {
             }
 
             if (isDealer_took_cards){  // If the gamer took cards this loop works
-//                System.out.println("Dealer take before update");
-//                showboard(dealer_take);
-//                System.out.println("****");
-//                System.out.println();
                 int z = 0;
                 for (int i = 0 ; i < dealer_take.length ; i  ++){
                     //Despite the possibility of players getting all the cards,
@@ -183,7 +179,7 @@ public class B_PlayGame {
                 }
             }
 
-            System.out.println("**********************************" + computer.getName() + "**********************************");
+            System.out.println("**********************************  " + computer.getName() + "  **********************************");
             System.out.println();
             System.out.println("------------------- BOARD ----------------------");
             showboard(cardsOnBoard);
@@ -221,10 +217,7 @@ public class B_PlayGame {
             }
 
             if (isComputer_took_cards){
-//                System.out.println("computer take before update");
-//                showboard(computer_take);
-//                System.out.println("****");
-//                System.out.println();
+
                 int q = 0;
                 for (int i = 0 ; i < computer_take.length ; i  ++){
                     if (computer_take[i] == null){
@@ -238,10 +231,6 @@ public class B_PlayGame {
                 }
 
                 isComputer_took_cards = false;
-//                System.out.println("computer take");
-//                showboard(computer_take);
-//                System.out.println("****");
-//                System.out.println();
             }
 
             System.out.println();
@@ -281,7 +270,6 @@ public class B_PlayGame {
             //cards are finished, it means the game has to finished
             // when every card is separated, length of deck become zero
             if (deck.length == 0 && isAll_null_computer && isAll_null_dealer){ // this control all cards are played and separated
-                System.out.println("//////////////////////////////////////////////");
                 if (cardsOnBoard[0] != null) {
                     if (!who_take_final) {
                         int last = 0;
@@ -321,7 +309,7 @@ public class B_PlayGame {
                         Amount_of_cards_on_the_board = 0;
                     }
                 }
-
+                System.out.println("//////////////////////////////////////////////");
                 System.out.println("The Game is over ");
                 System.out.println("Information about statement of cards");
                 System.out.println("Length of deck " + deck.length);
@@ -333,10 +321,6 @@ public class B_PlayGame {
                 System.out.println();
                 System.out.println("//////////////////////////////////////////////");
 
-
-
-//              System.out.println("computers point is " + computer.getPoint());
-//              System.out.println(dealer.getName() + " point is " + dealer.getPoint());
                 if (computer.getAmount_card_taken() > dealer.getAmount_card_taken()){
                     computerPoint += 3;
                     computer.setPoint(computerPoint);
@@ -346,6 +330,7 @@ public class B_PlayGame {
                     dealer.setPoint(dealersPoint);
                     System.out.println("THREE POINT CAME HERE " + dealer.getName());
                 }
+
                 System.out.println("Computer take");
                 showboard(computer_take);
                 System.out.println();
@@ -361,14 +346,14 @@ public class B_PlayGame {
                 System.out.println("computers point is " + computer.getPoint());
                 System.out.println(dealer.getName() + " point is " + dealer.getPoint());
 
-                int mama = 9;
+                int fileindex = 9;
 
                 cleanlist();
                 firselemanlist(dealer.getName(), Integer.toString(dealer.getPoint()));
                 while (true) {
-                    writeFilelast(mama);
-                    mama -= 1;
-                    if (mama == 0) {
+                    writeFilelast(fileindex);
+                    fileindex -= 1;
+                    if (fileindex == 0) {
                         break;
                     }
                 }
@@ -399,7 +384,7 @@ public class B_PlayGame {
     }
 
     public static void showboard(String[] new_array){
-        if (new_array[0] == null){ // if the board are is empty all indezes are null sothat to check 0. index is enough
+        if (new_array[0] == null){ // if the board are is empty all indexes are null so that to check 0. index is enough
             System.out.print("Empty");
         }
         for (int i = 0 ; i < new_array.length; i++){
@@ -504,43 +489,7 @@ public class B_PlayGame {
 
     }
 
-//    public static void readFile(String gamername, int point){
-//        Scanner scan = null;
-//        String[] fields = {"Name","Point"};
-//        try {
-//            int j = 0;
-//            int k =0;
-//            scan = new Scanner(Paths.get("Scorelist.txt"));
-//            while (scan.hasNextLine()){
-//                String[] information = scan.nextLine().split(",");
-//                for (int i = 0 ; i < fields.length  ; i ++){
-//                    System.out.println(fields[i] + information[k] );
-//                    k ++ ;
-//                    if (k == 2){
-//                        k = 0;
-//                    }
-//                }
-//                System.out.println("---------------");
-//                String s = Integer.toString(point);
-//                scorelist[j] = gamername ;
-//                scorelist[j + 1] = s;
-//                j += 2;
-//                if(j==20){
-//                    break;
-//                }
-//            }
-//            showboard(scorelist);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (scan != null){
-//                scan.close();
-//            }
-//        }
-//    }
-
-
+    // File //
     public static void readFile(){
         Scanner scan = null;
         String[] fields = {"Name --> ","Point --> "};
@@ -567,10 +516,7 @@ public class B_PlayGame {
                 System.out.println("---------------");
 
                 scorelist[2 * j] = myarrayisimler[j];
-                //System.out.println(myarrayisimler[j] + "immm");
                 scorelist[2 * j + 1] = myarray[j];
-                //System.out.println(myarray[j] + "daat");
-
                 j += 1;
                 if (j == 10) {
                     break;
@@ -600,15 +546,10 @@ public class B_PlayGame {
                     J--;
                 }
             }
-
-
             int y = 0;
             while (true) {
-
                 scorelist[2 * y] = myarrayisimler[y];
                 scorelist[2 * y + 1] = myarray[y];
-
-
                 y += 1;
                 if (y == 10) {
                     break;
@@ -667,10 +608,7 @@ public class B_PlayGame {
     }
     public static void cleanlist() {
         Formatter f = null;
-        //FileWriter fw = null;
         try {
-
-            // fw = new FileWriter("Scorelist.txt",true);
             f = new Formatter("Scorelist.txt");
             f.format(" %s, %s\n ", null, null);
 
@@ -684,39 +622,7 @@ public class B_PlayGame {
         }
     }
     public static void firselemanlist(String name, String point){
-
-
         Formatter f  = null ;
-//
-//        int temppoint = 0;
-//        String tempnames = null;
-//        for(int i = 0 ; i < myarray.length ; i ++) {
-//            int J = i;
-//            while (J > 0) {
-//                if (myarray[J] == null) {
-//                    for (int a = 0; i < myarray.length; a++) {
-//                        System.out.print(myarray[a] + " ");
-//                    }
-//                    System.out.println("problem");
-//                    ;
-//                }
-//                if (Integer.parseInt(myarray[J - 1].trim()) > Integer.parseInt(myarray[J].trim())) {
-//                    temppoint = Integer.parseInt(myarray[J - 1].trim());
-//                    myarray[J - 1] = myarray[J];
-//                    myarray[J] = Integer.toString(temppoint);
-//
-//                    tempnames = myarrayisimler[J - 1];
-//                    myarrayisimler[J - 1] = myarrayisimler[J];
-//                    myarrayisimler[J] = tempnames;
-//                }
-//                J--;
-//            }
-//        }
-//
-//        if (Integer.parseInt(myarray[9].trim()) < Integer.parseInt(point.trim())){
-//            myarray[9] = (point);
-//            myarrayisimler[9] = name;
-//        }
         try {
 
 
@@ -732,7 +638,10 @@ public class B_PlayGame {
             }
         }
 
-    }}
+    }
+
+    // File //
+}
 
 
 
